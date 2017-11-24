@@ -1,1 +1,1 @@
-# nbascoreboard
+# NBA Scoreboard Chrome Extension
