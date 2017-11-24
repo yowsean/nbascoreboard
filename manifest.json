@@ -1,0 +1,23 @@
+{
+  "name": "NBA Scores New Tab Page",
+  "description": "Live NBA Scores in new tab page",
+  "version": "0.1",
+  "chrome_url_overrides": {
+    "newtab": "scores.html"
+  },
+  "manifest_version": 2,
+  "permissions": [
+      "activeTab",
+      "http://data.nba.com/*"
+  ],
+  "browser_action": {
+    "default_icon": {
+      "64": "images/logo.png"
+    },
+    "default_title": "NBA Scores",
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "64": "images/logo.png"
+  }
+}
