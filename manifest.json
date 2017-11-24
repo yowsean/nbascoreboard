@@ -12,7 +12,7 @@
   ],
   "browser_action": {
     "default_icon": {
-      "64": "images/logo.png"
+      "64": "images/icons/logo.png"
     },
     "default_title": "NBA Scores",
     "default_popup": "popup.html"
