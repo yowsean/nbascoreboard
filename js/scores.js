@@ -34,35 +34,57 @@ function today() {
 }
 
 function showScores() {
-  $(".spinner").fadeOut("slow");
-  $.getJSON("http://data.nba.com/5s/prod/v1/" + "20171122" + "/scoreboard.json", function(data) {
+  $(".spinner").fadeIn("slow");
+  $.getJSON("http://data.nba.com/json/cms/noseason/scoreboard/" + today() + "/games.json", function(data) {
     console.log('success');
-      var games = data.games;
-      /*  hTeam: games[i].hTeam.triCode,
-          vTeam: games[i].vTeam.triCode,
-          active: games[i].isGameActivated,
-          startTime: games[i].startTimeEastern,
-          status: games[i].statusNum,
-          clock: games[i].clock,
-          period: games[i].period
-      */
-      for (var i = 1; i <= data.numGames; i++) {
-        document.getElementById('game'+i).innerHTML = games[i-1].vTeam.triCode + '-' + games[i-1].vTeam.score;
-        //document.getElementById('game'+i).href = "https://stats.nba.com/game/";
+    var games = data.sports_content.games.game;
+    /*  hTeam: games[i].hTeam.triCode,
+        vTeam: games[i].vTeam.triCode,
+        active: games[i].isGameActivated,
+        startTime: games[i].startTimeEastern,
+        status: games[i].statusNum,
+        clock: games[i].clock,
+        period: games[i].period
+    */
+    var gamesList = [];
+    for (var i = 0; i < games.length; i++) {
+      if (games[i].period_time.game_status == 2) {
+        gamesList.unshift(games[i]);
+      } else {
+        gamesList.push(games[i]);
       }
+      //document.getElementById('game'+i).href = "https://stats.nba.com/game/";
+    }
+    for (var i = 0; i < gamesList.length; i++) {
+      gameDisp(i, gamesList[i]);
+    }
   });
-  $(".spinner").delay(1000).fadeIn("slow");
+  $(".spinner").delay(1400).fadeOut("slow");
+}
+
+function gameDisp(i, game) {
+  document.getElementById('game'+i+"v").innerHTML = "<div class=\"c1\"><div class=\"s1\"><img src=\"/images/teams/"
+  + game.visitor.team_key
+  + ".png\" height=\"25\">"
+  + game.visitor.nickname + "</div>"
+  + "<div class=\"s2\">" + game.visitor.score + "</div></div>"
+  + "<div class=\"c2\">" + game.period_time.period_status + " - " +  game.period_time.game_clock + "</div>";
+  document.getElementById('game'+i+"h").innerHTML = "<div class=\"c1\"><div class=\"s1\"><img src=\"/images/teams/"
+  + game.home.team_key
+  + ".png\" height=\"25\">"
+  + game.home.nickname + "</div>"
+  + "<div class=\"s2\">" + game.home.score + "</div></div>";
 }
 
 function getNumGames(callback) {
-  $.getJSON("http://data.nba.com/5s/prod/v1/" + "20171122" + "/scoreboard.json", function(data) {
+  $.getJSON("http://data.nba.com/5s/prod/v1/" + today() + "/scoreboard.json", function(data) {
     callback(data.numGames);
   });
 }
 
 function render(n) {
-  for (var i = 1; i <= n; i++) {
-    $("#container").append("<div class=\"card\"><div class=\"card-container\"><div id=\"game"+i+"\"><h1></h1></div></div>");
+  for (var i = 0; i < n; i++) {
+    $("#container").append("<div class=\"card\"><div class=\"card-container\"><div class=\"entry\" id=\"game"+i+"v\"></div><div class=\"entry\" id=\"game"+i+"h\"></div></div>");
   }
 }
 
@@ -77,8 +99,42 @@ function init() {
       setInterval(time, 5000);
       render(num);
       showScores();
-      setInterval(showScores, 5000);
+      setInterval(showScores, 10000);
       console.log('done');
     }
   });
 }
+/*
+var teams = {
+  "PHI":"76ers",
+  "MIL":"Bucks",
+  "CHI":"Bulls",
+  "CLE":"Cavaliers",
+  "BOS":"Celtics",
+  "LAC":"Clippers",
+  "MEM":"Grizzlies",
+  "ATL":"Hawks",
+  "MIA":"Heat",
+  "CHA":"Hornets",
+  "UTA":"Jazz",
+  "SAC":"Kings",
+  "NYK":"Knicks",
+  "LAL":"Lakers",
+  "ORL":"Magic",
+  "DAL":"Mavericks",
+  "BKN":"Nets",
+  "DEN":"Nuggets",
+  "IND":"Pacers",
+  "NOP":"Pelicans",
+  "DET":"Pistons",
+  "TOR":"Raptors",
+  "HOU":"Rockets",
+  "SAS":"Spurs",
+  "PHX":"Suns",
+  "OKC":"Thunder",
+  "MIN":"Timberwolves",
+  "POR":"Trail Blazers",
+  "GSW":"Warriors",
+  "WAS":"Wizards"
+}
+*/

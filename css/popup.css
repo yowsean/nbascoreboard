@@ -1,23 +1,15 @@
 body, html {
   background-color: #E0E0E0;
-}
-
-body, h1 {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
-  font-weight: 100;
+  font-weight: 400;
 }
 
-h1   {
-  font-size: 500%;
-  text-align: center;
-  color: #424242;
+#time {
+  display: none;
 }
 
-h2   {
-  font-size: 200%;
-  text-align: center;
-  color: #424242;
-  font-weight: 100;
+.spinner {
+  display: none;
 }
 
 .card {
@@ -26,67 +18,64 @@ h2   {
     transition: 0.3s;
     background-color: #EEEEEE;
     color: #424242;
-    margin-left: 30%;
-    margin-right: 30%;
     padding: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     min-width: 30em;
 }
 
 /* On mouse-over, add a deeper shadow */
+/*
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     background-color: #E0E0E0;
-}
+}*/
 
 /* Add some padding inside the card container */
 .card-container {
-    padding: 10px 16px;
+    padding: 5px 16px;
+    font-size: 125%;
 }
 
-.spinner {
-  position: fixed;
-  width: 25px;
-  height: 25px;
-  left: 40px;
-  bottom: 40px;
-  background-color: #9E9E9E;
-
-  border-radius: 100%;
-  -webkit-animation: sk-scaleout 1s infinite ease-in-out;
-  animation: sk-scaleout 1s infinite ease-in-out;
+img {
+    vertical-align: middle;
+    margin-right:15px;
+    margin-bottom: 5px;
 }
 
-@-webkit-keyframes sk-scaleout {
-  0% { -webkit-transform: scale(0) }
-  100% {
-    -webkit-transform: scale(1.0);
-    opacity: 0;
-  }
+.entry {
+  padding: 5px;
 }
 
-@keyframes sk-scaleout {
-  0% {
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  } 100% {
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
-    opacity: 0;
-  }
+.c1 {
+  display:inline-block;
+  width: 60%;
 }
 
-#test {
-  width: 33.33%;
+.c2 {
+  display: inline-block;
+  text-align: center;
+  vertical-align: bottom;
+  width: 40%;
 }
 
+.s1 {
+  display: inline-block;
+  width: 75%;
+}
+
+.s2 {
+  display: inline-block;
+  text-align: right;
+  width: 15%;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
 /*
-div {
-    -webkit-columns: 500px 2;
-    -moz-columns: 500px 2;
-    columns: 500px 2;
-    -webkit-column-gap: 0px;
-    -moz-column-gap: 0px;
-    column-gap: 0px;
-}
-*/
