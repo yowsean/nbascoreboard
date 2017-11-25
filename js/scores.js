@@ -63,17 +63,32 @@ function showScores() {
 }
 
 function gameDisp(i, game) {
-  document.getElementById('game'+i+"v").innerHTML = "<div class=\"c1\"><div class=\"s1\"><img src=\"/images/teams/"
-  + game.visitor.team_key
-  + ".png\" height=\"25\">"
-  + game.visitor.nickname + "</div>"
-  + "<div class=\"s2\">" + game.visitor.score + "</div></div>"
-  + "<div class=\"c2\">" + game.period_time.period_status + " - " +  game.period_time.game_clock + "</div>";
-  document.getElementById('game'+i+"h").innerHTML = "<div class=\"c1\"><div class=\"s1\"><img src=\"/images/teams/"
-  + game.home.team_key
-  + ".png\" height=\"25\">"
-  + game.home.nickname + "</div>"
-  + "<div class=\"s2\">" + game.home.score + "</div></div>";
+  document.getElementById('game'+i+'v').innerHTML = `
+  <div class="s1"><img src="/images/teams/${game.visitor.team_key}.png" height="25">${game.visitor.nickname}</div>
+  <div class="s2">${game.visitor.score}</div>`;
+  document.getElementById('game'+i+'h').innerHTML = `
+  <div class="s1"><img src="/images/teams/${game.home.team_key}.png" height="25">${game.home.nickname}</div>
+  <div class="s2">${game.home.score}</div>`;
+
+  if (game.period_time.game_status == 1) {
+    document.getElementsByClassName('s2')[i*2].style.display = 'none';
+    document.getElementsByClassName('s2')[i*2+1].style.display = 'none';
+    document.getElementById('status'+i).innerHTML = game.period_time.period_status;
+  } else if (game.period_time.game_status == 2) {
+    document.getElementById('card').style.backgroundColor = "#F5F5F5";
+    if (game.period_time.game_clock == 0.0) {
+      document.getElementById('status'+i).innerHTML = "End of " + game.period_time.period_value + "Q.";
+    } else {
+      document.getElementById('status'+i).innerHTML = game.period_time.period_value + "Q: " + game.period_time.game_clock;
+    }
+  } else if (game.period_time.game_status == 3) {
+    if (parseInt(game.home.score) > parseInt(game.visitor.score)) {
+      document.getElementById('game'+i+'v').style.opacity = "0.5";
+    } else {
+      document.getElementById('game'+i+'h').style.opacity = "0.5";
+    }
+    document.getElementById('status'+i).innerHTML = game.period_time.period_status;
+  }
 }
 
 function getNumGames(callback) {
@@ -84,7 +99,18 @@ function getNumGames(callback) {
 
 function render(n) {
   for (var i = 0; i < n; i++) {
-    $("#container").append("<div class=\"card\"><div class=\"card-container\"><div class=\"entry\" id=\"game"+i+"v\"></div><div class=\"entry\" id=\"game"+i+"h\"></div></div>");
+    $("#container").append(`
+    <div class="card">
+      <div class="card-container">
+        <div class="c1">
+          <div id="game${i}v"></div>
+          <div id="game${i}h"></div></div>
+        <div class="divider"></div>
+        <div class="c2">
+          <div id="status${i}"></div>
+        </div>
+      </div>
+    </div>`);
   }
 }
 

@@ -25,31 +25,34 @@ footer {
   text-align: center;
 }
 
+.active {
+  background-color: #F5F5F5;
+}
+
 .card {
-    /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    background-color: #EEEEEE;
-    color: #424242;
-    margin-left: 35%;
-    margin-right: 35%;
-    padding: 4px;
-    margin-bottom: 5px;
-    min-width: 30em;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  background-color: #EEEEEE;
+  color: #424242;
+  margin-left: 35%;
+  margin-right: 35%;
+  padding: 4px;
+  margin-bottom: 5px;
+  min-width: 25em;
 }
 
-/* On mouse-over, add a deeper shadow */
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    background-color: #E0E0E0;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  background-color: #E0E0E0;
 }
 
-/* Add some padding inside the card container */
 .card-container {
-    padding: 15px 16px;
-    font-size: 125%;
-    font-weight: 400;
-    transition: color 2s ease 0s;
+  display: flex;
+  height: 55px;
+  padding: 15px 15px;
+  font-size: 125%;
+  font-weight: 400;
+  transition: color 2s ease 0s;
 }
 
 .spinner {
@@ -83,73 +86,40 @@ footer {
 }
 
 img {
-    vertical-align: middle;
-    margin-right:15px;
-    margin-bottom: 5px;
+  vertical-align: middle;
+  margin-right:15px;
+  margin-bottom: 5px;
 }
 
 .c1 {
   display:inline-block;
   width: 60%;
+  height: 100%;
 }
 
 .c2 {
   display: inline-block;
+  height: 55px;
+  line-height: 55px;
   text-align: center;
-  vertical-align: bottom;
-  width: 40%;
+  width: 35%;
 }
 
 .s1 {
   display: inline-block;
+  text-align: left;
   width: 75%;
+  height: 50%;
 }
 
 .s2 {
   display: inline-block;
   text-align: right;
   width: 15%;
-}
-/*
-.spinner {
-  position: fixed;
-  width: 25px;
-  height: 25px;
-  left: 40px;
-  bottom: 40px;
-  background-color: #9E9E9E;
-
-  border-radius: 100%;
-  -webkit-animation: sk-scaleout 1s infinite ease-in-out;
-  animation: sk-scaleout 1s infinite ease-in-out;
+  height: 50%;
 }
 
-@-webkit-keyframes sk-scaleout {
-  0% { -webkit-transform: scale(0) }
-  100% {
-    -webkit-transform: scale(1.0);
-    opacity: 0;
-  }
+.divider {
+   border-left:1px solid #BDBDBD;
+   width:5%;
 }
-
-@keyframes sk-scaleout {
-  0% {
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  } 100% {
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
-    opacity: 0;
-  }
-}
-*/
-/*
-div {
-    -webkit-columns: 500px 2;
-    -moz-columns: 500px 2;
-    columns: 500px 2;
-    -webkit-column-gap: 0px;
-    -moz-column-gap: 0px;
-    column-gap: 0px;
-}
-*/
