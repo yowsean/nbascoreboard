@@ -1,6 +1,7 @@
 body, html {
   background-color: #E0E0E0;
   -webkit-animation: fadein .75s;
+  text-align: center;
 }
 
 html {
@@ -21,11 +22,13 @@ h1   {
 }
 
 h2   {
+  position: relative;
+  top: 1px;
+  display: inline-block;
   font-size: 150%;
   text-align: center;
   color: #212121;
   font-weight: 400;
-  margin-top: 15px;
 }
 
 h3   {
@@ -143,4 +146,28 @@ img {
 .divider {
    border-left:1px solid #BDBDBD;
    width:5%;
+}
+
+.header {
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.fa {
+  color: #9E9E9E;
+  vertical-align: middle;
+  margin-right:10px;
+  margin-left:10px;
+  margin-bottom: 5px;
+  transition: color .75s;
+}
+
+.fa:hover {
+  color: #212121;
+}
+
+.noselect {
+    -webkit-user-select: none;
+            user-select: none;
 }

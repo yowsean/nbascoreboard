@@ -5,12 +5,20 @@
     <meta charset="utf-8">
     <title>Scores</title>
     <link rel="stylesheet" href="/css/popup.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
 
   <body>
-    <h1 id='time'></h1>
-    <h2 id='date'></h2>
+    <h1 class='noselect' id='time'></h1>
+
+    <div class='noselect' id'header'>
+      <i class="fa fa-arrow-circle-left fa-2x" id="left-btn" aria-hidden="true"></i>
+      <h2 id='date'></h2>
+      <i class="fa fa-arrow-circle-right fa-2x" id="right-btn" aria-hidden="true"></i>
+    </div>
+
     <div id="container"></div>
+    
     <div class="spinner"></div>
 
     <script src="/js/scores.js"></script>

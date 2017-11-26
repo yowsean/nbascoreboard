@@ -1,5 +1,9 @@
 window.addEventListener('load', init, false);
 window.addEventListener("keydown", keyEvent);
+document.getElementById("left-btn")
+.addEventListener("click", function(){changeDate(-1)});
+document.getElementById("right-btn")
+.addEventListener("click", function(){changeDate(1)});
 
 var sb = {d:0};
 
@@ -12,12 +16,15 @@ function init() {
 function keyEvent(e) {
   var keyCode = e.keyCode;
   if (keyCode == 39) {
-    sb.d += 1;
-    render();
+    changeDate(1);
   } else if (keyCode == 37) {
-    sb.d -= 1;
-    render();
+    changeDate(-1);
   }
+}
+
+function changeDate(n) {
+  sb.d += n;
+  render();
 }
 
 function render() {
@@ -25,26 +32,40 @@ function render() {
   + "/scoreboard.json", function(data) {
     renderCards(data.numGames);
     var activeGame = false;
+    var upcomingGame = false;
+    var nextGame = false;
     var timeout = 10000;
     for (var i = 0; i < data.numGames; i++) {
-      if (data.games[i].isGameActivated) {
+      if (data.games[i].statusNum == 2) {
         activeGame = true;
       }
+      if (data.games[i].statusNum == 1 && nextGame == false) {
+        upcomingGame = true;
+        if (nextGame == false) {
+          nextGame = i;
+        }
+      }
     }
-    if (!activeGame && sb.d == 0) {
-      var startTime = new Date(data.games[0].startTimeUTC);
+    if (!activeGame && upcomingGame && sb.d == 0) {
+      var startTime = new Date(data.games[nextGame].startTimeUTC);
       var currTime = new Date();
       timeout = startTime.getTime()-currTime.getTime();
     } else if (!activeGame) {
       timeout = 43200000;
     }
+    if (timeout < 0) {
+      timeout = 10000;
+    }
+    clearTimeout(sb.refresh);
     renderScores(activeGame, timeout);
   });
   setTimeout(render, 43200000);
 }
 
 function renderScores(activeGame, timeout) {
-  $(".spinner").fadeIn("fast");
+  if (sb.d == 0) {
+    $(".spinner").fadeIn("fast");
+  }
   $.getJSON("http://data.nba.com/json/cms/noseason/scoreboard/"
   + datef(getDate(sb.d)) + "/games.json", function(data) {
     printDate(getDate(sb.d));
@@ -62,9 +83,8 @@ function renderScores(activeGame, timeout) {
       gameDisp(i, gamesList[i]);
     }
   });
-  console.log(timeout);
   $(".spinner").delay(1000).fadeOut("slow");
-  setTimeout(function(){
+  sb.refresh = setTimeout(function() {
     renderScores(activeGame, timeout);
   }, timeout);
 }
@@ -106,19 +126,20 @@ function gameDisp(i, game) {
   <div class="s2">${game.home.score}</div>`;
 
   if (game.period_time.game_status == 1) {
-    document.getElementsByClassName('s2')[i*2].style.display = 'none';
-    document.getElementsByClassName('s2')[i*2+1].style.display = 'none';
+    document.getElementsByClassName('s2')[i*2].style.opacity = '0';
+    document.getElementsByClassName('s2')[i*2+1].style.opacity = '0';
     document.getElementById('status'+i).innerHTML = convertTime(game.date,game.time);
   } else if (game.period_time.game_status == 2) {
+    document.getElementsByClassName('s2')[i*2].style.opacity = '1';
+    document.getElementsByClassName('s2')[i*2+1].style.opacity = '1';
     document.getElementsByClassName('card')[i].style.backgroundColor = "#FAFAFA";
+    document.getElementById('status'+i).style.color = "#43A047";
     if (game.period_time.game_clock == 0.0) {
       document.getElementById('status'+i).innerHTML = "End of "
       + game.period_time.period_value + "Q";
-      document.getElementById('status'+i).style.color = "#43A047";
     } else {
       document.getElementById('status'+i).innerHTML = `
       ${game.period_time.period_value}Q: ${game.period_time.game_clock}`;
-      document.getElementById('status'+i).style.color = "#43A047";
     }
   } else if (game.period_time.game_status == 3) {
     if (parseInt(game.home.score) > parseInt(game.visitor.score)) {
@@ -127,6 +148,7 @@ function gameDisp(i, game) {
       document.getElementById('game'+i+'h').style.opacity = "0.5";
     }
     document.getElementById('status'+i).style.color = "#212121";
+    document.getElementsByClassName('card')[i].style.backgroundColor = "#EEEEEE";
     document.getElementById('status'+i).innerHTML = game.period_time.period_status;
   }
 }
