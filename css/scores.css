@@ -8,7 +8,7 @@ html {
 }
 
 body, h1 {
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-family: "Roboto", "Helvetica-Neue", Arial, sans-serif;
   font-weight: 100;
 }
 
@@ -45,14 +45,14 @@ footer {
 }
 
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 3px 10px 0 #9E9E9E;
   transition: 0.3s;
   background-color: #EEEEEE;
   color: #424242;
-  margin-left: 35%;
-  margin-right: 35%;
+  margin-left: 36%;
+  margin-right: 36%;
   padding: 4px;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   min-width: 28em;
   -webkit-animation: fadein .75s;
 }

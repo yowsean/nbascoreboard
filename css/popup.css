@@ -35,25 +35,23 @@ h3   {
 }
 
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 3px 10px 0 #9E9E9E;
     transition: 0.3s;
     background-color: #EEEEEE;
     color: #424242;
     padding: 5px;
     margin-bottom: 5px;
     margin-right: 15px;
-    min-width: 30em;
+    min-width: 27em;
     -webkit-animation: fadein .75s;
 }
 
-/* On mouse-over, add a deeper shadow */
 /*
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     background-color: #E0E0E0;
 }*/
 
-/* Add some padding inside the card container */
 .card-container {
   display: flex;
   height: 55px;
@@ -106,12 +104,7 @@ img {
 }
 
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
+    -webkit-user-select: none;
+            user-select: none;
 }
 /*
