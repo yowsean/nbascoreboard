@@ -1,7 +1,7 @@
 {
-  "name": "NBA Scores New Tab Page",
+  "name": "NBA Scores",
   "description": "Live NBA Scores in new tab page",
-  "version": "0.1",
+  "version": "0.9",
   "chrome_url_overrides": {
     "newtab": "scores.html"
   },
