@@ -1,5 +1,5 @@
 {
-  "name": "NBA Scores",
+  "name": "NBA Scoreboard",
   "description": "Live NBA Scores in new tab page",
   "version": "0.9",
   "chrome_url_overrides": {
