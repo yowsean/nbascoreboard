@@ -139,7 +139,7 @@ function gameDisp(i, game) {
       + game.period_time.period_value + "Q";
     } else {
       document.getElementById('status'+i).innerHTML = `
-      ${game.period_time.period_value}Q: ${game.period_time.game_clock}`;
+      ${game.period_time.period_value}Q - ${game.period_time.game_clock}`;
     }
   } else if (game.period_time.game_status == 3) {
     if (parseInt(game.home.score) > parseInt(game.visitor.score)) {
