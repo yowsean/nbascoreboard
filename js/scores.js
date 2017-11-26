@@ -1,4 +1,6 @@
 window.addEventListener('load', init, false);
+window.addEventListener("keydown", keyEvent);
+var cd = {d:0, num:0};
 
 function time() {
   var currTime = new Date();
@@ -24,31 +26,46 @@ function time() {
   document.getElementById('time').innerHTML = h + ":" + m;
 }
 
-function today() {
-  var datef = new Date();
-  var y = datef.getFullYear();
-  var m = datef.getMonth()+1;
-  var d = datef.getDate();
-  var datef = y.toString() + m.toString() + d.toString();
+function getDate(n) {
+  var sDate = new Date();
+  sDate.setDate(sDate.getDate() + n);
+  return sDate;
+}
+
+function printDate(sDate) {
+  var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
+  var strDate = monthNames[sDate.getMonth()] + " " + sDate.getDate() + ", " + sDate.getFullYear();
+  document.getElementById('date').innerHTML = `${strDate}`;
+}
+
+function datef(sDate) {
+  var y = sDate.getFullYear();
+  var m = sDate.getMonth()+1;
+  var d = sDate.getDate();
+  if (m < 10) {
+    m = '0' + m;
+  } else {
+    m = m.toString();
+  }
+  if (d < 10) {
+    d = '0' + d;
+  } else {
+    d = d.toString();
+  }
+
+  var datef = y.toString() + m + d;
   return datef;
 }
 
-function showScores() {
-  $(".spinner").fadeIn("slow");
-  $.getJSON("http://data.nba.com/json/cms/noseason/scoreboard/" + today() + "/games.json", function(data) {
+function showScores(d) {
+  $.getJSON("http://data.nba.com/json/cms/noseason/scoreboard/" + datef(getDate(d)) + "/games.json", function(data) {
     console.log('success');
+    printDate(getDate(d));
     var games = data.sports_content.games.game;
-    /*  hTeam: games[i].hTeam.triCode,
-        vTeam: games[i].vTeam.triCode,
-        active: games[i].isGameActivated,
-        startTime: games[i].startTimeEastern,
-        status: games[i].statusNum,
-        clock: games[i].clock,
-        period: games[i].period
-    */
     var gamesList = [];
     for (var i = 0; i < games.length; i++) {
-      if (games[i].period_time.game_status == 2) {
+      if (parseInt(games[i].period_time.game_status) == 2) {
         gamesList.unshift(games[i]);
       } else {
         gamesList.push(games[i]);
@@ -59,7 +76,6 @@ function showScores() {
       gameDisp(i, gamesList[i]);
     }
   });
-  $(".spinner").delay(1400).fadeOut("slow");
 }
 
 function gameDisp(i, game) {
@@ -75,11 +91,12 @@ function gameDisp(i, game) {
     document.getElementsByClassName('s2')[i*2+1].style.display = 'none';
     document.getElementById('status'+i).innerHTML = game.period_time.period_status;
   } else if (game.period_time.game_status == 2) {
-    document.getElementById('card').style.backgroundColor = "#F5F5F5";
+    document.getElementsByClassName('card')[i].style.backgroundColor = "#FAFAFA";
     if (game.period_time.game_clock == 0.0) {
-      document.getElementById('status'+i).innerHTML = "End of " + game.period_time.period_value + "Q.";
+      document.getElementById('status'+i).innerHTML = "End of " + game.period_time.period_value + "Q";
     } else {
       document.getElementById('status'+i).innerHTML = game.period_time.period_value + "Q: " + game.period_time.game_clock;
+      document.getElementById('status'+i).style.color = "#43A047";
     }
   } else if (game.period_time.game_status == 3) {
     if (parseInt(game.home.score) > parseInt(game.visitor.score)) {
@@ -91,44 +108,75 @@ function gameDisp(i, game) {
   }
 }
 
-function getNumGames(callback) {
-  $.getJSON("http://data.nba.com/5s/prod/v1/" + today() + "/scoreboard.json", function(data) {
+function getNumGames(callback, d) {
+  $.getJSON("http://data.nba.com/5s/prod/v1/" + datef(getDate(d)) + "/scoreboard.json", function(data) {
     callback(data.numGames);
   });
 }
 
-function render(n) {
-  for (var i = 0; i < n; i++) {
+function render(n, d) {
+  document.getElementById("container").innerHTML = "";
+  if (n == 0) {
+    printDate(getDate(d));
     $("#container").append(`
     <div class="card">
-      <div class="card-container">
-        <div class="c1">
-          <div id="game${i}v"></div>
-          <div id="game${i}h"></div></div>
-        <div class="divider"></div>
-        <div class="c2">
-          <div id="status${i}"></div>
-        </div>
-      </div>
+        <h3>No games today.</h3>
     </div>`);
+  } else {
+    for (var i = 0; i < n; i++) {
+      $("#container").append(`
+      <div class="card">
+        <div class="card-container">
+          <div class="c1">
+            <div id="game${i}v"></div>
+            <div id="game${i}h"></div></div>
+          <div class="divider"></div>
+          <div class="c2">
+            <div id="status${i}"></div>
+          </div>
+        </div>
+      </div>`);
+    }
+    showScores(d);
   }
 }
 
+function refresh() {
+  $(".spinner").fadeIn("slow");
+  showScores(cd.d);
+  $(".spinner").fadeOut("slow");
+}
+
 function init() {
+  cd.d = 0;
+  time();
+  setInterval(time, 5000);
   getNumGames(function (num) {
-    if (num == 0) {
-      time();
-      setInterval(time, 5000);
-      $("#container").append("<h2>No games today.</h2>");
-    } else {
-      time();
-      setInterval(time, 5000);
-      render(num);
-      showScores();
-      setInterval(showScores, 10000);
-      console.log('done');
-    }
-  });
+    cd.num = num;
+    render(num, cd.d);
+  }, cd.d);
+  setInterval(refresh, 10000);
+}
+
+function keyEvent(e) {
+  var keyCode = e.keyCode;
+  if (keyCode == 39) {
+    cd.d += 1;
+    var d = cd.d;
+    getNumGames(function (num) {
+      cd.num = num;
+      render(num, cd.d);
+      refresh();
+    }, cd.d);
+  } else if (keyCode == 37) {
+    cd.d -= 1;
+    var d = cd.d;
+    getNumGames(function (num) {
+      cd.num = num;
+      render(num, cd.d);
+      refresh();
+    }, cd.d);
+  }
 }
 /*
 var teams = {
