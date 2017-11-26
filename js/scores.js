@@ -34,12 +34,13 @@ function render() {
     if (!activeGame && sb.d == 0) {
       var startTime = new Date(data.games[0].startTimeUTC);
       var currTime = new Date();
-      timeout = (startTime.getTime()-currTime.getTime())/1000;
+      timeout = startTime.getTime()-currTime.getTime();
     } else if (!activeGame) {
-      timeout = 43200;
+      timeout = 43200000;
     }
     renderScores(activeGame, timeout);
   });
+  setTimeout(render, 43200000);
 }
 
 function renderScores(activeGame, timeout) {
@@ -61,9 +62,10 @@ function renderScores(activeGame, timeout) {
       gameDisp(i, gamesList[i]);
     }
   });
+  console.log(timeout);
   $(".spinner").delay(1000).fadeOut("slow");
   setTimeout(function(){
-    renderScores(sb.d);
+    renderScores(activeGame, timeout);
   }, timeout);
 }
 
