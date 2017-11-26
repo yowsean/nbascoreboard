@@ -1,10 +1,10 @@
 window.addEventListener('load', init, false);
 window.addEventListener("keydown", keyEvent);
 
-var cd = {d:0};
+var sb = {d:0};
 
 function init() {
-  cd.d = 0;
+  sb.d = 0;
   time();
   render();
 }
@@ -12,30 +12,42 @@ function init() {
 function keyEvent(e) {
   var keyCode = e.keyCode;
   if (keyCode == 39) {
-    cd.d += 1;
+    sb.d += 1;
     render();
   } else if (keyCode == 37) {
-    cd.d -= 1;
+    sb.d -= 1;
     render();
   }
 }
 
 function render() {
-  $.getJSON("http://data.nba.com/10s/prod/v1/" + datef(getDate(cd.d))
+  $.getJSON("http://data.nba.com/10s/prod/v1/" + datef(getDate(sb.d))
   + "/scoreboard.json", function(data) {
-    renderCards(data.numGames, cd.d);
-    renderScores(cd.d);
+    renderCards(data.numGames);
+    var activeGame = false;
+    var timeout = 10000;
+    for (var i = 0; i < data.numGames; i++) {
+      if (data.games[i].isGameActivated) {
+        activeGame = true;
+      }
+    }
+    if (!activeGame && sb.d == 0) {
+      var startTime = new Date(data.games[0].startTimeUTC);
+      var currTime = new Date();
+      timeout = (startTime.getTime()-currTime.getTime())/1000;
+    } else if (!activeGame) {
+      timeout = 43200;
+    }
+    renderScores(activeGame, timeout);
   });
 }
 
-function renderScores(d) {
+function renderScores(activeGame, timeout) {
   $(".spinner").fadeIn("fast");
   $.getJSON("http://data.nba.com/json/cms/noseason/scoreboard/"
-  + datef(getDate(d)) + "/games.json", function(data) {
-    console.log('success');
-    printDate(getDate(d));
+  + datef(getDate(sb.d)) + "/games.json", function(data) {
+    printDate(getDate(sb.d));
     var games = data.sports_content.games.game;
-    var activeGame = false;
     var gamesList = [];
     for (var i = 0; i < games.length; i++) {
       if (parseInt(games[i].period_time.game_status) == 2) {
@@ -51,14 +63,14 @@ function renderScores(d) {
   });
   $(".spinner").delay(1000).fadeOut("slow");
   setTimeout(function(){
-    renderScores(cd.d);
-  }, 10000);
+    renderScores(sb.d);
+  }, timeout);
 }
 
-function renderCards(n, d) {
+function renderCards(n) {
   document.getElementById("container").innerHTML = "";
   if (n == 0) {
-    printDate(getDate(d));
+    printDate(getDate(sb.d));
     $("#container").append(`
     <div class="card">
         <h3>No games today.</h3>
@@ -94,7 +106,7 @@ function gameDisp(i, game) {
   if (game.period_time.game_status == 1) {
     document.getElementsByClassName('s2')[i*2].style.display = 'none';
     document.getElementsByClassName('s2')[i*2+1].style.display = 'none';
-    document.getElementById('status'+i).innerHTML = game.period_time.period_status;
+    document.getElementById('status'+i).innerHTML = convertTime(game.date,game.time);
   } else if (game.period_time.game_status == 2) {
     document.getElementsByClassName('card')[i].style.backgroundColor = "#FAFAFA";
     if (game.period_time.game_clock == 0.0) {
@@ -117,12 +129,30 @@ function gameDisp(i, game) {
   }
 }
 
+function convertTime(d, t) {
+  var localTime = new Date(d.slice(0,4) + "-" + d.slice(4,6) + "-" + d.slice(6,8)
+                          + " " + t.slice(0,2) + ":" + t.slice(2,4) + " EST");
+  var h = localTime.getHours();
+  var m = localTime.getMinutes();
+  var am = "AM";
+  if (h >= 12) {
+      am = "PM";
+      h = h - 12;
+  }
+  if (h == 0) {
+    h = 12;
+  }
+  if (m < 10) {
+    m = "0" + m;
+  }
+  return h + ":" + m + " " + am;
+}
+
 function time() {
   var currTime = new Date();
   var h = currTime.getHours();
   var m = currTime.getMinutes();
   var s = currTime.getSeconds();
-  var am = true;
   if (h >= 12) {
       h = h - 12;
   }
@@ -133,7 +163,7 @@ function time() {
     m = "0" + m;
   }
   document.getElementById('time').innerHTML = h + ":" + m;
-  setTimeout(time, 5000);
+  setTimeout(time, 60-s);
 }
 
 function getDate(n) {
