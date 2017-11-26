@@ -1,5 +1,10 @@
 body, html {
   background-color: #E0E0E0;
+  -webkit-animation: fadein .75s;
+}
+
+html {
+  overflow-y: scroll;
 }
 
 body, h1 {
@@ -10,11 +15,21 @@ body, h1 {
 h1   {
   font-size: 500%;
   text-align: center;
-  color: #424242;
+  color: #212121;
+  margin-top: 25px;
+  margin-bottom: 10px;
 }
 
 h2   {
-  font-size: 200%;
+  font-size: 150%;
+  text-align: center;
+  color: #212121;
+  font-weight: 400;
+  margin-top: 15px;
+}
+
+h3   {
+  font-size: 150%;
   text-align: center;
   color: #424242;
   font-weight: 100;
@@ -38,13 +53,14 @@ footer {
   margin-right: 35%;
   padding: 4px;
   margin-bottom: 5px;
-  min-width: 25em;
+  min-width: 28em;
+  -webkit-animation: fadein .75s;
 }
-
+/*
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   background-color: #E0E0E0;
-}
+}*/
 
 .card-container {
   display: flex;
@@ -52,7 +68,11 @@ footer {
   padding: 15px 15px;
   font-size: 125%;
   font-weight: 400;
-  transition: color 2s ease 0s;
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 .spinner {
@@ -62,6 +82,7 @@ footer {
   left: 40px;
   bottom: 40px;
   background-color: #BDBDBD;
+  -webkit-animation: fadein .75s;
   -webkit-animation: sk-rotateplane 1s infinite ease-in-out;
   animation: sk-rotateplane 1s infinite ease-in-out;
 }

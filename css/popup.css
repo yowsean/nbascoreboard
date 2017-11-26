@@ -1,7 +1,29 @@
 body, html {
+  width: 100%;
+  height: 100%;
   background-color: #E0E0E0;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   font-weight: 400;
+  -webkit-animation: fadein .75s;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+h2   {
+  font-size: 150%;
+  text-align: center;
+  color: #212121;
+  font-weight: 400;
+  margin-top: 15px;
+}
+
+h3   {
+  font-size: 150%;
+  text-align: center;
+  color: #424242;
+  font-weight: 100;
 }
 
 #time {
@@ -17,9 +39,11 @@ body, html {
     transition: 0.3s;
     background-color: #EEEEEE;
     color: #424242;
-    padding: 4px;
+    padding: 5px;
     margin-bottom: 5px;
+    margin-right: 15px;
     min-width: 30em;
+    -webkit-animation: fadein .75s;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -35,6 +59,11 @@ body, html {
   height: 55px;
   padding: 5px 15px;
   font-size: 125%;
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 img {
