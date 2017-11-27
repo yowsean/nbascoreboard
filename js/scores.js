@@ -4,6 +4,8 @@ document.getElementById("left-btn")
 .addEventListener("click", function(){changeDate(-1)});
 document.getElementById("right-btn")
 .addEventListener("click", function(){changeDate(1)});
+document.getElementById("date")
+.addEventListener("dblclick", function(){changeDate(-sb.d)});
 
 var sb = {d:0};
 
