@@ -27,6 +27,7 @@ h2   {
   font-size: 125%;
   text-align: center;
   color: #212121;
+  margin-bottom: 15px;
   font-weight: 400;
 }
 
@@ -55,7 +56,7 @@ footer {
   background-color: #EEEEEE;
   color: #424242;
   padding: 4px;
-  margin-top: 8px;
+  margin-bottom: 8px;
   -webkit-animation: fadein .75s;
 }
 /*
