@@ -14,7 +14,7 @@ body, h1 {
 }
 
 h1   {
-  font-size: 500%;
+  font-size: 450%;
   text-align: center;
   color: #212121;
   margin-top: 25px;
@@ -23,16 +23,14 @@ h1   {
 
 h2   {
   position: relative;
-  top: 1px;
   display: inline-block;
-  font-size: 150%;
+  font-size: 125%;
   text-align: center;
   color: #212121;
   font-weight: 400;
 }
 
 h3   {
-  font-size: 150%;
   text-align: center;
   color: #424242;
   font-weight: 100;
@@ -41,6 +39,8 @@ h3   {
 footer {
   margin-top: 50px;
   text-align: center;
+  font-size: 75%;
+  display: none;
 }
 
 .active {
@@ -52,11 +52,8 @@ footer {
   transition: 0.3s;
   background-color: #EEEEEE;
   color: #424242;
-  margin-left: 36%;
-  margin-right: 36%;
   padding: 4px;
-  margin-bottom: 8px;
-  min-width: 28em;
+  margin-top: 8px;
   -webkit-animation: fadein .75s;
 }
 /*
@@ -67,9 +64,8 @@ footer {
 
 .card-container {
   display: flex;
-  height: 55px;
-  padding: 15px 15px;
-  font-size: 125%;
+  padding: 10px 10px;
+  font-size: 105%;
   font-weight: 400;
 }
 
@@ -151,14 +147,15 @@ img {
 .header {
   width: 100%;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .fa {
   color: #9E9E9E;
+  font-size: 1.75em;
   vertical-align: middle;
-  margin-right:10px;
-  margin-left:10px;
+  margin-right: 10px;
+  margin-left: 10px;
   margin-bottom: 5px;
   transition: color .75s;
 }
@@ -170,4 +167,8 @@ img {
 .noselect {
     -webkit-user-select: none;
             user-select: none;
+}
+
+.container{
+  max-width: 1000px;
 }
