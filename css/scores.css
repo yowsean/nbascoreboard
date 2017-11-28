@@ -64,9 +64,6 @@ footer {
   text-align: center;
   transition: 0.3s;
   color: #424242;
-  padding: 5px;
-  margin-bottom: 5px;
-  margin-right: 15px;
   min-width: 28em;
   -webkit-animation: fadein .75s;
 }

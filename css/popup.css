@@ -16,7 +16,6 @@ h2   {
   display: inline-block;
   position: relative;
   top: 1px;
-  right: 7px;
   font-size: 150%;
   text-align: center;
   color: #212121;
@@ -56,8 +55,9 @@ h3   {
   transition: 0.3s;
   color: #424242;
   padding: 5px;
+  margin-left: 8px;
   margin-bottom: 5px;
-  margin-right: 15px;
+  margin-right: 7px;
   min-width: 28em;
   -webkit-animation: fadein .75s;
 }
@@ -135,7 +135,7 @@ img {
   color: #9E9E9E;
   vertical-align: middle;
   margin-right: 15px;
-  margin-left: 0px;
+  margin-left: 15px;
   margin-bottom: 5px;
   transition: color .5s;
 }
