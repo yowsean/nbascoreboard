@@ -96,7 +96,7 @@ function renderCards(n) {
   if (n == 0) {
     printDate(getDate(sb.d));
     $("#container").append(`
-    <div class="card">
+    <div class="text">
         <h3>No games today.</h3>
     </div>`);
   } else {
@@ -163,7 +163,7 @@ function offline() {
   document.getElementById("container").innerHTML = "";
   printDate(getDate(sb.d));
   $("#container").append(`
-  <div class="card">
+  <div class="text">
       <h3>Offline</h3>
   </div>`);
 }
