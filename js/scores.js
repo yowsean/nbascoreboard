@@ -60,7 +60,7 @@ function render() {
     }
     clearTimeout(sb.refresh);
     renderScores(activeGame, timeout);
-  });
+  }).fail(function() {offline();});
   setTimeout(render, 43200000);
 }
 
@@ -157,6 +157,15 @@ function gameDisp(i, game) {
     document.getElementsByClassName('card')[i].style.backgroundColor = "#EEEEEE";
     document.getElementById('status'+i).innerHTML = game.period_time.period_status;
   }
+}
+
+function offline() {
+  document.getElementById("container").innerHTML = "";
+  printDate(getDate(sb.d));
+  $("#container").append(`
+  <div class="card">
+      <h3>Offline</h3>
+  </div>`);
 }
 
 function convertTime(d, t) {
