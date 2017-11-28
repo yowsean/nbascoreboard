@@ -137,11 +137,15 @@ function gameDisp(i, game) {
     document.getElementsByClassName('card')[i].style.backgroundColor = "#FAFAFA";
     document.getElementById('status'+i).style.color = "#43A047";
     if (game.period_time.game_clock == 0.0) {
-      document.getElementById('status'+i).innerHTML = "End of "
-      + game.period_time.period_value + "Q";
+      if (game.period_time.period_value == 2) {
+        document.getElementById('status'+i).innerHTML = "Halftime"
+      } else {
+        document.getElementById('status'+i).innerHTML = "End of Q"
+        + game.period_time.period_value;
+      }
     } else {
       document.getElementById('status'+i).innerHTML = `
-      ${game.period_time.period_value}Q - ${game.period_time.game_clock}`;
+      Q${game.period_time.period_value} - ${game.period_time.game_clock}`;
     }
   } else if (game.period_time.game_status == 3) {
     if (parseInt(game.home.score) > parseInt(game.visitor.score)) {
