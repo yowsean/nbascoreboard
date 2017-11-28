@@ -200,7 +200,7 @@ function time() {
     m = "0" + m;
   }
   document.getElementById('time').innerHTML = h + ":" + m;
-  setTimeout(time, 60-s);
+  setTimeout(time, (60-s) * 1000);
 }
 
 function getDate(n) {
