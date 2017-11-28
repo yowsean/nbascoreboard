@@ -136,13 +136,11 @@ function gameDisp(i, game) {
     document.getElementsByClassName('s2')[i*2+1].style.opacity = '1';
     document.getElementsByClassName('card')[i].style.backgroundColor = "#FAFAFA";
     document.getElementById('status'+i).style.color = "#43A047";
-    if (game.period_time.game_clock == 0.0) {
-      if (game.period_time.period_value == 2) {
-        document.getElementById('status'+i).innerHTML = "Halftime"
-      } else {
+    if (game.period_time.period_status == "Halftime") {
+      document.getElementById('status'+i).innerHTML = "Halftime";
+    } else if (game.period_time.game_clock == 0.0) {
         document.getElementById('status'+i).innerHTML = "End of Q"
         + game.period_time.period_value;
-      }
     } else {
       document.getElementById('status'+i).innerHTML = `
       Q${game.period_time.period_value} - ${game.period_time.game_clock}`;
