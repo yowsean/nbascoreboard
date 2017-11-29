@@ -125,7 +125,8 @@ img {
             user-select: none;
 }
 
-.header {
+#header {
+  opacity: 0;
   width: 100%;
   text-align: center;
   margin-top: 15px;

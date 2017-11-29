@@ -71,6 +71,7 @@ function renderScores(activeGame, timeout) {
   $.getJSON("http://data.nba.com/json/cms/noseason/scoreboard/"
   + datef(getDate(sb.d)) + "/games.json", function(data) {
     printDate(getDate(sb.d));
+    document.getElementById("header").style.opacity = "1";
     var games = data.sports_content.games.game;
     var gamesList = [];
     for (var i = 0; i < games.length; i++) {
@@ -95,6 +96,7 @@ function renderCards(n) {
   document.getElementById("container").innerHTML = "";
   if (n == 0) {
     printDate(getDate(sb.d));
+    document.getElementById("header").style.opacity = "1";
     $("#container").append(`
     <div class="text">
         <h3>No games today.</h3>
