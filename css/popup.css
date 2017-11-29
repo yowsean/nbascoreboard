@@ -125,17 +125,18 @@ img {
             user-select: none;
 }
 
-#header {
-  width: 100%;
+#date {
+  position: inline-block;
   text-align: center;
+  right: 7px;
   margin-top: 15px;
 }
 
 .fa {
   color: #9E9E9E;
   vertical-align: middle;
-  margin-right: 15px;
-  margin-left: 15px;
+  margin-right: 19px;
+  margin-left: 5px;
   margin-bottom: 5px;
   transition: color .5s;
 }
