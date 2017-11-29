@@ -84,7 +84,7 @@ function renderScores(activeGame, timeout) {
     for (var i = 0; i < gamesList.length; i++) {
       gameDisp(i, gamesList[i]);
     }
-  });
+  }).fail(function() {offline();});
   $(".spinner").delay(1000).fadeOut("slow");
   sb.refresh = setTimeout(function() {
     renderScores(activeGame, timeout);
@@ -158,7 +158,6 @@ function gameDisp(i, game) {
 
 function offline() {
   document.getElementById("container").innerHTML = "";
-  printDate(getDate(sb.d));
   $("#container").append(`
   <div class="text">
       <h3>Offline</h3>
