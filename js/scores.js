@@ -208,11 +208,12 @@ function getDate(n) {
 }
 
 function printDate(sDate) {
-  var monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"];
-  var strDate = monthNames[sDate.getMonth()] + " "
-                          + sDate.getDate() + ", "
-                          + sDate.getFullYear();
+  var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months = ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.",
+  "Jul.", "Aug.", "Sept.", "Oct.", "Nov.", "Dec."];
+  var strDate = days[sDate.getDay()] + ", "
+                + months[sDate.getMonth()] + " "
+                + sDate.getDate();
   document.getElementById('date').innerHTML = `${strDate}`;
 }
 
