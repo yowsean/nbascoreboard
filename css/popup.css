@@ -117,7 +117,7 @@ img {
 
 .divider {
    border-left:1px solid #BDBDBD;
-   width:5%;
+   width:2.5%;
 }
 
 .noselect {
@@ -126,8 +126,15 @@ img {
 }
 
 #date {
-  position: inline-block;
+  position: relative;
+  display: inline-block;
+  font-size: 150%;
   text-align: center;
+  color: #212121;
+  margin-bottom: 15px;
+  font-weight: 400;
+  width:175px;
+  max-width:175px;
   right: 7px;
   margin-top: 15px;
 }
@@ -139,6 +146,7 @@ img {
   margin-left: 5px;
   margin-bottom: 5px;
   transition: color .5s;
+  cursor: pointer;
 }
 
 .fa:hover {

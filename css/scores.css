@@ -153,12 +153,24 @@ img {
 
 .divider {
    border-left:1px solid #BDBDBD;
-   width:5%;
+   width:4%;
 }
 
 #header {
   width: 100%;
   text-align: center;
+}
+
+#date {
+  position: relative;
+  display: inline-block;
+  font-size: 125%;
+  text-align: center;
+  color: #212121;
+  margin-bottom: 15px;
+  font-weight: 400;
+  width:175px;
+  max-width:175px;
 }
 
 .fa {
@@ -169,6 +181,7 @@ img {
   margin-left: 10px;
   margin-bottom: 5px;
   transition: color .75s;
+  cursor: pointer;
 }
 
 .fa:hover {
