@@ -165,21 +165,18 @@ function offline() {
 }
 
 function convertTime(d, t) {
-  var localTime = new Date(d.slice(0,4) + "-" + d.slice(4,6) + "-" + d.slice(6,8)
-                          + " " + t.slice(0,2) + ":" + t.slice(2,4) + " EST");
-  var h = localTime.getHours();
-  var m = localTime.getMinutes();
-  var am = "AM";
-  if (h >= 12) {
-      am = "PM";
-      h = h - 12;
+  var today = new Date();
+  var et = "EST";
+  dst = today.toString().match(/\(([^\)]+)\)$/)[1].slice(-2);
+  if (dst == "DT") {
+    et = "EDT";
   }
-  if (h == 0) {
-    h = 12;
-  }
-  if (m < 10) {
-    m = "0" + m;
-  }
+  var ESTTime = new Date(d.slice(0,4) + "-" + d.slice(4,6) + "-" + d.slice(6,8)
+                          + " " + t.slice(0,2) + ":" + t.slice(2,4) + " " + et);
+  var localTime = ESTTime.toLocaleTimeString().split(":");
+  var h = localTime[0];
+  var m = localTime[1];
+  var am = localTime[2].split(" ")[1];
   return h + ":" + m + " " + am;
 }
 
