@@ -168,7 +168,8 @@ function convertTime(d, t) {
   var today = new Date();
   var et = "EST";
   dst = today.toString().match(/\(([^\)]+)\)$/)[1].slice(-2);
-  if (dst == "DT") {
+  console.log(today);
+  if (today.toString().includes("Daylight")) {
     et = "EDT";
   }
   var ESTTime = new Date(d.slice(0,4) + "-" + d.slice(4,6) + "-" + d.slice(6,8)
@@ -177,6 +178,9 @@ function convertTime(d, t) {
   var h = localTime[0];
   var m = localTime[1];
   var am = localTime[2].split(" ")[1];
+  if (dst == "DT") {
+    h -= 1;
+  }
   return h + ":" + m + " " + am;
 }
 
