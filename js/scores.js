@@ -101,7 +101,7 @@ function renderCards(n) {
   } else {
     for (var i = 0; i < n; i++) {
       $("#container").append(`
-      <div class="card">
+      <div class="card noselect" id="${i}">
         <div class="card-container">
           <div class="c1">
             <div id="game${i}v"></div>
@@ -150,8 +150,8 @@ function gameDisp(i, game) {
     } else {
       document.getElementById('game'+i+'h').style.opacity = "0.5";
     }
-    document.getElementById('status'+i).style.color = "#212121";
-    document.getElementsByClassName('card')[i].style.backgroundColor = "#EEEEEE";
+    document.getElementById('status'+i).style.color = "#e0e0e0";
+    document.getElementsByClassName('card')[i].style.backgroundColor = "#333333";
     document.getElementById('status'+i).innerHTML = game.period_time.period_status;
   }
 }
