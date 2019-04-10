@@ -29,6 +29,9 @@ function changeDate(n) {
   render();
 }
 
+// espn api
+// https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&region=us&dates=20190407
+
 function render() {
   printDate(getDate(sb.d));
   $.getJSON("http://data.nba.com/10s/prod/v1/" + datef(getDate(sb.d))
@@ -95,7 +98,7 @@ function renderCards(n) {
   document.getElementById("container").innerHTML = "";
   if (n == 0) {
     $("#container").append(`
-    <div class="text">
+    <div class="text noselect">
         <h3>No games today.</h3>
     </div>`);
   } else {
@@ -119,11 +122,11 @@ function renderCards(n) {
 function gameDisp(i, game) {
   document.getElementById('game'+i+'v').innerHTML = `
   <div class="s1"><img src="/images/teams/${game.visitor.team_key}.png"
-  height="25">${game.visitor.nickname}</div>
+  height="25" style="opacity:0.75;">${game.visitor.nickname}</div>
   <div class="s2">${game.visitor.score}</div>`;
   document.getElementById('game'+i+'h').innerHTML = `
   <div class="s1"><img src="/images/teams/${game.home.team_key}.png"
-  height="25">${game.home.nickname}</div>
+  height="25" style="opacity:0.75;">${game.home.nickname}</div>
   <div class="s2">${game.home.score}</div>`;
 
   if (game.period_time.game_status == 1) {
@@ -133,8 +136,8 @@ function gameDisp(i, game) {
   } else if (game.period_time.game_status == 2) {
     document.getElementsByClassName('s2')[i*2].style.opacity = '1';
     document.getElementsByClassName('s2')[i*2+1].style.opacity = '1';
-    document.getElementsByClassName('card')[i].style.backgroundColor = "#FAFAFA";
-    document.getElementById('status'+i).style.color = "#43A047";
+    document.getElementsByClassName('card')[i].style.backgroundColor = "#454545";
+    document.getElementById('status'+i).style.color = "#3ec168";
     if (game.period_time.period_status == "Halftime") {
       document.getElementById('status'+i).innerHTML = "Halftime";
     } else if (game.period_time.game_clock == 0.0) {
@@ -151,7 +154,7 @@ function gameDisp(i, game) {
       document.getElementById('game'+i+'h').style.opacity = "0.5";
     }
     document.getElementById('status'+i).style.color = "#e0e0e0";
-    document.getElementsByClassName('card')[i].style.backgroundColor = "#333333";
+    document.getElementsByClassName('card')[i].style.backgroundColor = "#353535";
     document.getElementById('status'+i).innerHTML = game.period_time.period_status;
   }
 }
@@ -159,7 +162,7 @@ function gameDisp(i, game) {
 function offline() {
   document.getElementById("container").innerHTML = "";
   $("#container").append(`
-  <div class="text">
+  <div class="text noselect">
       <h3>Offline</h3>
   </div>`);
 }
