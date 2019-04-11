@@ -1,6 +1,6 @@
 body, html {
-  width: 310px;
-  height: 100%;
+  width: 320px;
+  height: 50px;
   background-color: #282828;
   font-family: "Roboto", "Roboto", Helvetica, Arial, sans-serif;
   font-weight: 400;
@@ -28,9 +28,10 @@ h3   {
   font-family: "Product Sans", "Roboto", Helvetica, Arial, sans-serif;
   font-size: 125%;
   text-align: center;
-  color: #919191;
+  color: #606060;
+  font-style: italic;
   font-weight: 100;
-  margin-top: 50%;
+  margin-top: 10px;
   margin-right: 10px;
 }
 
@@ -45,8 +46,8 @@ h3   {
 .card {
   box-shadow: 0 3px 10px 0 #141414;
   transition: 0.3s;
-  background-color: #383838;
-  color: #d0d0d0;
+  background-color: #353535;
+  color: #cccccc;
   padding: 3px;
   margin-bottom: 5px;
   margin-right: 15px;
@@ -54,6 +55,14 @@ h3   {
   border-radius: 5px;
   cursor: pointer;
   -webkit-animation: fadein .75s;
+}
+
+.card:hover {
+  opacity: 0.75;
+}
+
+.card:active {
+  opacity: 0.5;
 }
 
 .text {
@@ -66,6 +75,12 @@ h3   {
   margin-right: 7px;
   min-width: 24em;
   -webkit-animation: fadein .75s;
+}
+
+#container {
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 15px;
 }
 
 .card-container {
@@ -138,20 +153,34 @@ h3   {
   max-width:175px;
   right: 7px;
   margin-top: 10px;
+  cursor: pointer;
+  transition: color .25s;
+}
+
+#date:hover {
+  color: #555555;
+}
+
+#date:active {
+  color: #444444;
 }
 
 .fa {
-  color: #777777;
+  color: #5f5f5f;
   vertical-align: middle;
   margin-right: 19px;
   margin-left: 5px;
   margin-bottom: 5px;
-  transition: color .5s;
+  transition: color .25s;
   cursor: pointer;
 }
 
 .fa:hover {
-  color: #454545;
+  color: #444444;
+}
+
+.fa:active {
+  color: #333333;
 }
 
 img {

@@ -29,9 +29,6 @@ function changeDate(n) {
   render();
 }
 
-// espn api
-// https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&region=us&dates=20190407
-
 function render() {
   printDate(getDate(sb.d));
   $.getJSON("http://data.nba.com/10s/prod/v1/" + datef(getDate(sb.d))
@@ -99,7 +96,7 @@ function renderCards(n) {
   if (n == 0) {
     $("#container").append(`
     <div class="text noselect">
-        <h3>No games today.</h3>
+        <h3>No games.</h3>
     </div>`);
   } else {
     for (var i = 0; i < n; i++) {
@@ -129,6 +126,10 @@ function gameDisp(i, game) {
   height="25" style="opacity:0.75;">${game.home.nickname}</div>
   <div class="s2">${game.home.score}</div>`;
 
+  document.getElementById(i).addEventListener("click", function() {
+    openESPNbox(game.date, game.home.nickname, game.visitor.nickname, game.period_time.game_status)
+  });
+
   if (game.period_time.game_status == 1) {
     document.getElementsByClassName('s2')[i*2].style.opacity = '0';
     document.getElementsByClassName('s2')[i*2+1].style.opacity = '0';
@@ -136,7 +137,7 @@ function gameDisp(i, game) {
   } else if (game.period_time.game_status == 2) {
     document.getElementsByClassName('s2')[i*2].style.opacity = '1';
     document.getElementsByClassName('s2')[i*2+1].style.opacity = '1';
-    document.getElementsByClassName('card')[i].style.backgroundColor = "#454545";
+    document.getElementsByClassName('card')[i].style.backgroundColor = "#404040";
     document.getElementById('status'+i).style.color = "#3ec168";
     if (game.period_time.period_status == "Halftime") {
       document.getElementById('status'+i).innerHTML = "Halftime";
@@ -237,4 +238,23 @@ function datef(sDate) {
   }
   var datef = y.toString() + m + d;
   return datef;
+}
+
+function openESPNbox(date, team1, team2, status) {
+  $.getJSON("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?lang=en&region=us&dates="
+  + date, function(data) {
+    var games = data.events;
+    var id = 0;
+    for (var i = 0; i < games.length; i++) {
+      if (games[i].name.toLowerCase().includes(team1.toLowerCase()) &&
+        games[i].name.toLowerCase().includes(team2.toLowerCase())) {
+        id = games[i].id
+      }
+    }
+    var newURL = "http://www.espn.com/nba/boxscore?gameId="+id;
+    if (status == 1) {
+      newURL = "http://www.espn.com/nba/game?gameId="+id;
+    }
+    chrome.tabs.create({ url: newURL });
+  })
 }
